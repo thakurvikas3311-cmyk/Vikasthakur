@@ -209,7 +209,7 @@ function CaseStudyPage({ slug }) {
 /* Read project slug from URL */
 function getSlug() {
   const params = new URLSearchParams(location.search);
-  return params.get('project') || (window.CASE_ORDER ? window.CASE_ORDER[0] : 'schoolpad');
+  return params.get('project') || params.get('slug') || (window.CASE_ORDER ? window.CASE_ORDER[0] : 'schoolpad');
 }
 
 function CaseApp() {

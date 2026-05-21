@@ -1081,10 +1081,39 @@ function FooterBar() {
   );
 }
 
+/* Scroll to #section after React mounts (loader delays native hash jump). */
+function useHashScroll() {
+  useEffect(() => {
+    const scroll = () => {
+      const id = location.hash.replace(/^#/, '');
+      if (!id) return;
+      const el = document.getElementById(id);
+      if (!el) return false;
+      const top = el.getBoundingClientRect().top + scrollY - 72;
+      scrollTo({ top, behavior: 'smooth' });
+      return true;
+    };
+    const onBoot = () => setTimeout(scroll, 120);
+    if (document.body.classList.contains('booted')) setTimeout(scroll, 120);
+    else addEventListener('app:booted', onBoot, { once: true });
+    let tries = 0;
+    const iv = setInterval(() => {
+      if (scroll() || ++tries > 50) clearInterval(iv);
+    }, 100);
+    addEventListener('hashchange', scroll);
+    return () => {
+      clearInterval(iv);
+      removeEventListener('app:booted', onBoot);
+      removeEventListener('hashchange', scroll);
+    };
+  }, []);
+}
+
 /* ── APP ── */
 function App() {
   useMagneticButtons();
   useHeroParallax();
+  useHashScroll();
   return (
     <>
       <Loader />
