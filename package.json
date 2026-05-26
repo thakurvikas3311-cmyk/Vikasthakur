@@ -3,7 +3,8 @@
   "version": "1.0.0",
   "private": true,
   "scripts": {
-    "build": "node build.js"
+    "build": "node build.js",
+    "start": "python3 -m http.server -d dist 8000"
   },
   "description": "Build script for the VT001 static portfolio pages.",
   "author": "Vikas Thakur",
