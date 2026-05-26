@@ -1,0 +1,11 @@
+{
+  "name": "vikas-portfolio",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "build": "node build.js"
+  },
+  "description": "Build script for the VT001 static portfolio pages.",
+  "author": "Vikas Thakur",
+  "license": "MIT"
+}
